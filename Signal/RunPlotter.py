@@ -39,6 +39,8 @@ if opt.cats in ['all','wall']:
   fs = glob.glob("%s/outdir_%s/CMS-HGG_sigfit_%s_*.root"%(swd__,opt.ext,opt.ext))
   for f in fs:
     cat = re.sub(".root","",f.split("/")[-1].split("_%s_"%opt.ext)[-1])
+    cat = cat[:-5]         # to remove _2018. Fix when merging all years
+    #print("cat = ", cat)
     inputFiles[cat] = f
     if citr == 0:
       w = ROOT.TFile(f).Get("wsig_13TeV")
@@ -49,7 +51,8 @@ if opt.cats in ['all','wall']:
     citr += 1
 else:
   for cat in opt.cats.split(","):
-    f = "%s/outdir_%s/CMS-HGG_sigfit_%s_%s.root"%(swd__,opt.ext,opt.ext,cat)
+    #f = "%s/outdir_%s/CMS-HGG_sigfit_%s_%s.root"%(swd__,opt.ext,opt.ext,cat)
+    f = "%s/outdir_%s/CMS-HGG_sigfit_%s_%s_2018.root"%(swd__,opt.ext,opt.ext,cat)  ##FIX hardcoding (_2018) later
     inputFiles[cat] = f
     if citr == 0:
       w = ROOT.TFile(f).Get("wsig_13TeV")
@@ -96,7 +99,7 @@ for cat,f in inputFiles.iteritems():
         k = "%s__%s"%(proc,year)
         _id = "%s_%s_%s_%s"%(proc,year,cat,sqrts__)
         norms[k] = w.function("%s_%s_normThisLumi"%(outputWSObjectTitle__,_id))
-    
+
   # Iterate over norms: extract total category norm
   catNorm = 0
   for k, norm in norms.iteritems():

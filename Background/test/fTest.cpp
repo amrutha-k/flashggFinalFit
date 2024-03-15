@@ -298,6 +298,7 @@ double getGoodnessOfFit(RooRealVar *mass, RooAbsPdf *mpdf, RooDataSet *data, std
     prob = TMath::Prob(chi2*(nBinsForMass-np),nBinsForMass-np);
   }
   std::cout << "[INFO] Chi2 in Observed =  " << chi2*(nBinsForMass-np) << std::endl;
+  std::cout << "[INFO] reduced Chi2 =  " << chi2 << std::endl;
   std::cout << "[INFO] p-value  =  " << prob << std::endl;
   delete pdf;
   return prob;

@@ -11,5 +11,14 @@
         "fits":"profile1D:syst:all",
         "points":"20:1",
         "fit_opts":"--saveSpecifiedNuis all --saveInactivePOI 1 --cminApproxPreFitTolerance=10"
+
+    },
+    
+    "MH":{
+        "pois":"MH",
+        "fits":"profile1D:syst:all+profile1D:statonly:all",
+        "points":"20:1+20:1",
+        "fit_opts":"--saveSpecifiedNuis all --saveInactivePOI 1 --cminApproxPreFitTolerance=10 --setParameters MH=125.38,lumi_scaler=2.3 --setParameterRanges MH=122,128 +--saveSpecifiedNuis all --saveInactivePOI 1 --cminApproxPreFitTolerance=10 --setParameters MH=125.38,lumi_scaler=2.3 --setParameterRanges MH=122,128"
+
     }
 }
