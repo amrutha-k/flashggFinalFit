@@ -280,7 +280,8 @@ if opt.doVoigtian:
 ssfMap = od()
 name = "Total" if opt.skipVertexScenarioSplit else "RV"
 ssfRV = SimultaneousFit(name,opt.proc,opt.cat,datasetRVForFit,xvar.Clone(),MH,MHLow,MHHigh,opt.massPoints,opt.nBins,opt.MHPolyOrder,opt.minimizerMethod,opt.minimizerTolerance)
-if opt.useDCB: ssfRV.buildDCBplusGaussian()
+#if opt.useDCB: ssfRV.buildDCBplusGaussian()
+if opt.useDCB: ssfRV.buildDCB()   ## try DCB instead of DCB+Gaussian
 else: ssfRV.buildNGaussians(nRV)
 ssfRV.runFit()
 ssfRV.buildSplines()
@@ -289,7 +290,8 @@ ssfMap[name] = ssfRV
 if not opt.skipVertexScenarioSplit:
   name = "WV"
   ssfWV = SimultaneousFit(name,opt.proc,opt.cat,datasetWVForFit,xvar.Clone(),MH,MHLow,MHHigh,opt.massPoints,opt.nBins,opt.MHPolyOrder,opt.minimizerMethod,opt.minimizerTolerance)
-  if opt.useDCB: ssfWV.buildDCBplusGaussian()
+  #if opt.useDCB: ssfWV.buildDCBplusGaussian()
+  if opt.useDCB: ssfWV.buildDCB()
   else: ssfWV.buildNGaussians(nWV)
   ssfWV.runFit()
   ssfWV.buildSplines()
@@ -324,4 +326,4 @@ if opt.doPlots:
     plotPdfComponents(ssfWV,_outdir="%s/outdir_%s/signalFit/Plots"%(swd__,opt.ext),_extension="WV_",_proc=procWVFit,_cat=catRVFit) 
   # Plot interpolation
   plotInterpolation(fm,_outdir="%s/outdir_%s/signalFit/Plots"%(swd__,opt.ext)) 
-  plotSplines(fm,_outdir="%s/outdir_%s/signalFit/Plots"%(swd__,opt.ext),_nominalMass=MHNominal) 
+  plotSplines(fm,_outdir="%s/outdir_%s/signalFit/Plots"%(swd__,opt.ext),_nominalMass=MHNominal,_skipVtxSplit=opt.skipVertexScenarioSplit) 
